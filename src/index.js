@@ -1,6 +1,12 @@
-// import files you want part of your library here.
-import {MyClass} from "./my-class.js"
+import "./crs-graphics.js";
+import {Rectangle} from "./graphics/rectangle.js";
+import {Triangle} from "./graphics/triangle.js";
+import {Circle} from "./graphics/circle.js";
 
+globalThis.crs = globalThis.crs || {};
+globalThis.crs.gfx = {
+    Rectangle: Rectangle,
+    Triangle: Triangle,
+    Circle: Circle
+};
 
-// export your api here.
-export {MyClass}
