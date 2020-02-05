@@ -17,16 +17,21 @@ export class SceneGraph {
         }
     }
 
-    processInput(ctx, x, y) {
-        let selected = null;
-
+    processInput(ctx, selectionCtx, x, y) {
         for (let i = this._items.length -1; i > -1; i--) {
             const item = this._items[i];
             if (item.locatedAt(ctx, x, y) == true) {
-                selected = item;
-                console.log(selected);
+                if (item != this._selected) {
+                    selectionCtx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                    this._selected = item;
+                    this._drawSelected(selectionCtx, item);
+                }
                 break;
             }
         }
+    }
+
+    _drawSelected(ctx, item) {
+        item.drawSelected(ctx);
     }
 }

@@ -21,4 +21,12 @@ export class Graphic extends Entity {
         this.stroke = stroke || "transparent";
         this.path = new Path2D(data);
     }
+
+    drawSelected(ctx) {
+        ctx.stroke(this.path);
+    }
+
+    locatedAt(ctx, x, y) {
+        return ctx.isPointInPath(this.path, x, y);
+    }
 }

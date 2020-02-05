@@ -15,8 +15,4 @@ export class Circle extends Graphic {
         ctx.strokeStyle = this.stroke;
         ctx.fill(this.path);
     }
-
-    locatedAt(ctx, x, y) {
-        return ctx.isPointInPath(this.path, x, y);
-    }
 }

@@ -13,21 +13,35 @@ class Graphics extends HTMLElement {
         this._ctx.canvas.removeEventListener("mousemove", this._mouseMoveHandler);
 
         this._ctx = null;
+        this._selectionCtx = null;
         this._mouseMoveHandler = null;
     }
 
     _initCanvas() {
         const canvas = document.createElement("canvas");
+        const selectionCanvas = document.createElement("canvas");
+        selectionCanvas.style.pointerEvents = "none";
+
         this.appendChild(canvas);
+        this.appendChild(selectionCanvas);
 
         requestAnimationFrame(() => {
             const dpr = window.devicePixelRatio || 1;
             const rect = canvas.getBoundingClientRect();
+
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
+            selectionCanvas.width = canvas.width;
+            selectionCanvas.height = canvas.height;
 
             this._ctx = canvas.getContext("2d");
             this._ctx.scale(dpr, dpr);
+
+            this._selectionCtx = selectionCanvas.getContext("2d");
+            this._selectionCtx.scale(dpr, dpr);
+            this._selectionCtx.strokeStyle = "black";
+            this._selectionCtx.lineWidth = 2;
+            this._selectionCtx.setLineDash([5, 5]);
 
             canvas.addEventListener("mousemove", this._mouseMoveHandler);
             this._draw();
@@ -50,7 +64,7 @@ class Graphics extends HTMLElement {
     }
 
     _draw() {
-        this.scene.processInput(this._ctx, this.x, this.y);
+        this.scene.processInput(this._ctx, this._selectionCtx, this.x, this.y);
 
         requestAnimationFrame(this._drawHandler);
     }
