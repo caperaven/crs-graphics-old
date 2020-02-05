@@ -4,6 +4,12 @@ export class Entity {
         this.y = y;
         this.width = width;
         this.height = height;
+        this.x2 = x + width;
+        this.y2 = y + height;
+    }
+
+    locatedAt(ctx, x, y) {
+        return x >= this.x && x <= this.x2 && y >= this.y && y <= this.y2;
     }
 }
 
@@ -14,7 +20,5 @@ export class Graphic extends Entity {
         this.fill = fill || "#ffbb00";
         this.stroke = stroke || "transparent";
         this.path = new Path2D(data);
-
-        console.log(data);
     }
 }

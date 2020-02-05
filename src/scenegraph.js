@@ -16,4 +16,17 @@ export class SceneGraph {
             item.draw(ctx);
         }
     }
+
+    processInput(ctx, x, y) {
+        let selected = null;
+
+        for (let i = this._items.length -1; i > -1; i--) {
+            const item = this._items[i];
+            if (item.locatedAt(ctx, x, y) == true) {
+                selected = item;
+                console.log(selected);
+                break;
+            }
+        }
+    }
 }
